@@ -5,9 +5,9 @@
 	<script>
 
 function Hotel(){
-    var guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
-    var maxOccupancy = 25;
-    var remainingRooms = null;
+    this.guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
+    this.maxOccupancy = 25;
+    this.remainingRooms = null;
     /*
     * checkIn - adds a guest object to the guest array
     * @params - roomID, name
@@ -16,10 +16,10 @@ function Hotel(){
 	this.checkIn = function(roomID, name){
 		//add a guest to the hotel.
         console.log("Hello, " + name + " you're in " + roomID);
-        guests.push({"name":name,"roomID":roomID}); // Push the guest as an object into the guests array
+        this.guests.push({"name":name,"roomID":roomID}); // Push the guest as an object into the guests array
         //store the guest and the room that they checked into
-        console.log("Guests Array", guests);
-        return guests;
+        console.log("Guests Array", this.guests);
+        return this.guests;
 
 	};
 	/*
@@ -29,10 +29,10 @@ function Hotel(){
 	 */
 	this.checkOut = function(roomID){
 		//remove a guest from the hotel
-        for (var i = 0; i < guests.length; i++) {
-            (guests[i]["roomID"] === roomID)?(guests.splice(i,1)):(console.log("I'm sorry, we don't have that guest in our records"));
+        for (var i = 0; i < this.guests.length; i++) {
+            (this.guests[i]["roomID"] === roomID)?(this.guests.splice(i,1)):(console.log("I'm sorry, we don't have that guest in our records"));
         }
-        return guests;
+        return this.guests;
 	};
 	/*
 	* getVacancyCount - calculate the number of remaining rooms
@@ -41,7 +41,7 @@ function Hotel(){
 	 */
 	this.getVacancyCount = function(){
 		//returns the number of unoccupied rooms
-        remainingRooms = this.maxOccupancy - this.guests.length;
+        var remainingRooms = this.maxOccupancy - this.guests.length;
         console.log(remainingRooms);
         return remainingRooms;
 	};
