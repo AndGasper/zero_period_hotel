@@ -4,9 +4,9 @@
 	<title></title>
 	<script>
 
-function Hotel(maxOccupancy) {
-    this.guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
-    this.maxOccupancy;
+function Hotel() {
+    this.guests = {};
+    this.maxOccupancy; // Does this need to be here?
     var maxOccupancyValue = null;
     Object.defineProperties(this,{
         maxOccupancy: {
@@ -14,9 +14,15 @@ function Hotel(maxOccupancy) {
                 return maxOccupancyValue;
             },
             set: function(newMaxOccupancy){
-                if (newMaxOccupancy > )
-                maxOccupancyValue = newMaxOccupancy;
-                console.log("I am the setter",maxOccupancyValue);
+                if (newMaxOccupancy > this.getVacancyCount()) {
+                    maxOccupancyValue = newMaxOccupancy;
+                    console.log("I am the setter", maxOccupancyValue);
+                    console.log("'Ey, oh, some of these people got to go!");
+                }
+                else if (newMaxOccupancy <= this.getVacancyCount()) {
+                    maxOccupancyValue = newMaxOccupancy;
+                    console.log(maxOccupancyValue);
+                }
             }
         }
     });
@@ -26,9 +32,12 @@ function Hotel(maxOccupancy) {
     * return - guests
     */
     this.checkIn = function(roomID, name){
-        (this.getVacancyCount() <= this.maxOccupancy)?
-            (this.guests.push({roomID:roomID,name:name})):
+        if (Object.keys(this.guests).length < this.maxOccupancy) {
+            this.guests.roomID = roomID;
+            //TODO Make a new guest object when they check in
+        } else {
             (console.log("We're at capacity"));
+        }
         return this.guests;
 	};
     /*
@@ -50,12 +59,10 @@ function Hotel(maxOccupancy) {
 	* @params - maxOccupancy, guests, remainingRooms
 	* return remainingRooms
 	 */
-	this.getVacancyCount =
-        function(){
+	this.getVacancyCount = function(){
             //returns the number of unoccupied rooms
-
         var remainingRooms = this.maxOccupancy - this.guests.length;
-        console.log(remainingRooms);
+        console.log("Remaining rooms",remainingRooms);
         return remainingRooms;
 	};
 	}
@@ -78,8 +85,10 @@ function Hotel(maxOccupancy) {
 //}
 
 var testHotel = new Hotel();
-//console.log(testHotel.checkIn(1, "Jim"));
-//console.log(testHotel.checkIn(2,"Bob"));
+testHotel.maxOccupancy = 2;
+console.log(testHotel.checkIn(1, "Jim"));
+console.log(testHotel.checkIn(2,"Bob"));
+console.log(testHotel.checkIn(3,"Tom"));
 //console.log(testHotel.getVacancyCount());
 //console.log(testHotel.checkOut((1)));
 
