@@ -4,23 +4,19 @@
 	<title></title>
 	<script>
 
-function Hotel(){
+function Hotel(maxOccupancy){
     this.guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
-    this.maxOccupancy = 25;
-    this.remainingRooms = null;
+    this.maxOccupancy = maxOccupancy;
     /*
-    * checkIn - adds a guest object to the guest array
+    * checkIn - calls getVacancyCount to check if there are available rooms then adds a guest object to the guest array
     * @params - roomID, name
     * return - guests
     */
 	this.checkIn = function(roomID, name){
-		//add a guest to the hotel.
-        console.log("Hello, " + name + " you're in " + roomID);
-        this.guests.push({"name":name,"roomID":roomID}); // Push the guest as an object into the guests array
-        //store the guest and the room that they checked into
-        console.log("Guests Array", this.guests);
+        (this.getVacancyCount() <= this.maxOccupancy)?
+            (this.guests.push({"name":name,"roomID":roomID})):
+            (console.log("We're at capacity"));
         return this.guests;
-
 	};
 	/*
 	* checkOut - removes guest object from guests array
@@ -30,7 +26,9 @@ function Hotel(){
 	this.checkOut = function(roomID){
 		//remove a guest from the hotel
         for (var i = 0; i < this.guests.length; i++) {
-            (this.guests[i]["roomID"] === roomID)?(this.guests.splice(i,1)):(console.log("I'm sorry, we don't have that guest in our records"));
+            (this.guests[i]["roomID"] === roomID)?
+                (this.guests.splice(i,1)):
+                (console.log("I'm sorry, we don't have that guest in our records"));
         }
         return this.guests;
 	};
@@ -48,11 +46,12 @@ function Hotel(){
 
 }
 
-var testHotel = new Hotel();
-console.log(testHotel.checkIn(1, "Jim"));
-console.log(testHotel.checkIn(2,"Bob"));
-console.log(testHotel.getVacancyCount());
+var testHotel = new Hotel(25);
+//console.log(testHotel.checkIn(1, "Jim"));
+//console.log(testHotel.checkIn(2,"Bob"));
+//console.log(testHotel.getVacancyCount());
 //console.log(testHotel.checkOut((1)));
+
 
 
 
