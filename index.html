@@ -5,18 +5,55 @@
 	<script>
 
 function Hotel(){
-
+    var guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
+    var maxOccupancy = 25;
+    var remainingRooms = null;
+    /*
+    * checkIn - adds a guest object to the guest array
+    * @params - roomID, name
+    * return - guests
+    */
 	this.checkIn = function(roomID, name){
-		//add a guest to the hotel.  
-		//store the guest and the room that they checked into
-	}
+		//add a guest to the hotel.
+        console.log("Hello, " + name + " you're in " + roomID);
+        guests.push({"name":name,"roomID":roomID}); // Push the guest as an object into the guests array
+        //store the guest and the room that they checked into
+        console.log("Guests Array", guests);
+        return guests;
+
+	};
+	/*
+	* checkOut - removes guest object from guests array
+	* @params - roomID
+	* return - guests
+	 */
 	this.checkOut = function(roomID){
 		//remove a guest from the hotel
-	}
+        for (var i = 0; i < guests.length; i++) {
+            (guests[i]["roomID"] === roomID)?(guests.splice(i,1)):(console.log("I'm sorry, we don't have that guest in our records"));
+        }
+        return guests;
+	};
+	/*
+	* getVacancyCount - calculate the number of remaining rooms
+	* @params - maxOccupancy, guests, remainingRooms
+	* return remainingRooms
+	 */
 	this.getVacancyCount = function(){
 		//returns the number of unoccupied rooms
-	}
+        remainingRooms = this.maxOccupancy - this.guests.length;
+        console.log(remainingRooms);
+        return remainingRooms;
+	};
+
 }
+
+var testHotel = new Hotel();
+console.log(testHotel.checkIn(1, "Jim"));
+console.log(testHotel.checkIn(2,"Bob"));
+console.log(testHotel.getVacancyCount());
+//console.log(testHotel.checkOut((1)));
+
 
 
 	</script>
