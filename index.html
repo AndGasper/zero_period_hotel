@@ -6,7 +6,20 @@
 
 function Hotel(maxOccupancy) {
     this.guests = []; // Array for holding guests. Guests are recorded as an object with key:value pairs of: name:name nad rooomID:roomID
-    this.maxOccupancy = maxOccupancy;
+    this.maxOccupancy;
+    var maxOccupancyValue = null;
+    Object.defineProperties(this,{
+        maxOccupancy: {
+            get: function(){
+                return maxOccupancyValue;
+            },
+            set: function(newMaxOccupancy){
+                if (newMaxOccupancy > )
+                maxOccupancyValue = newMaxOccupancy;
+                console.log("I am the setter",maxOccupancyValue);
+            }
+        }
+    });
     /*
     * checkIn - calls getVacancyCount to check if there are available rooms then adds a guest object to the guest array
     * @params - roomID, name
@@ -14,7 +27,7 @@ function Hotel(maxOccupancy) {
     */
     this.checkIn = function(roomID, name){
         (this.getVacancyCount() <= this.maxOccupancy)?
-            (this.guests.push({"name": name, "roomID": roomID})):
+            (this.guests.push({roomID:roomID,name:name})):
             (console.log("We're at capacity"));
         return this.guests;
 	};
@@ -46,25 +59,25 @@ function Hotel(maxOccupancy) {
         return remainingRooms;
 	};
 	}
+//
+//	/*step 2*/
+//	this.getGuestRegistry = function(){
+//		//return the entire list of rooms and their guests in this format:
+//		//array of objects[
+//		   {
+//		   	name  //name of the guest
+//		   	roomID  //room they are checked in
+//		   	checkedIn   //the date and time that they checked in
+//		   }
+//		]
+//	}
+//	this.getRoomHistory = function(roomID){
+//		//return an array of all guests who have stayed at a particular room, including when they checked in, and when they checked out
+//	}
+//
+//}
 
-	/*step 2*/
-	this.getGuestRegistry = function(){
-		//return the entire list of rooms and their guests in this format:
-		//array of objects[
-		   {
-		   	name  //name of the guest
-		   	roomID  //room they are checked in
-		   	checkedIn   //the date and time that they checked in
-		   }
-		]
-	}
-	this.getRoomHistory = function(roomID){
-		//return an array of all guests who have stayed at a particular room, including when they checked in, and when they checked out
-	}
-
-}
-
-var testHotel = new Hotel(25);
+var testHotel = new Hotel();
 //console.log(testHotel.checkIn(1, "Jim"));
 //console.log(testHotel.checkIn(2,"Bob"));
 //console.log(testHotel.getVacancyCount());
