@@ -5,15 +5,15 @@
 	<script>
 
 function Hotel() {
-    this.guests = {};
+    this.guests = [];
     this.maxOccupancy; // Does this need to be here?
     var maxOccupancyValue = null;
-    Object.defineProperties(this,{
+    Object.defineProperties(this, {
         maxOccupancy: {
-            get: function(){
+            get: function () {
                 return maxOccupancyValue;
             },
-            set: function(newMaxOccupancy){
+            set: function (newMaxOccupancy) {
                 if (newMaxOccupancy > this.getVacancyCount()) {
                     maxOccupancyValue = newMaxOccupancy;
                     console.log("I am the setter", maxOccupancyValue);
@@ -26,7 +26,7 @@ function Hotel() {
             }
         }
     });
-    /*
+	/*
     * checkIn - calls getVacancyCount to check if there are available rooms then adds a guest object to the guest array
     * @params - roomID, name
     * return - guests
@@ -39,8 +39,8 @@ function Hotel() {
             (console.log("We're at capacity"));
         }
         return this.guests;
-	};
-    /*
+    };
+	/*
 	* checkOut - removes guest object from guests array
 	* @params - roomID
 	* return - guests
@@ -53,8 +53,9 @@ function Hotel() {
                 (console.log("I'm sorry, we don't have that guest in our records"));
         }
         return this.guests;
-	};
-    /*
+	}
+    ;
+	/*
 	* getVacancyCount - calculate the number of remaining rooms
 	* @params - maxOccupancy, guests, remainingRooms
 	* return remainingRooms
@@ -63,7 +64,8 @@ function Hotel() {
             //returns the number of unoccupied rooms
         var remainingRooms = this.maxOccupancy - this.guests.length;
         console.log("Remaining rooms",remainingRooms);
-        return remainingRooms;
+        return
+            remainingRooms;
 	};
 	}
 //
@@ -85,7 +87,7 @@ function Hotel() {
 //}
 
 var testHotel = new Hotel();
-testHotel.maxOccupancy = 2;
+testHotel.maxOccupancy = 25;
 console.log(testHotel.checkIn(1, "Jim"));
 console.log(testHotel.checkIn(2,"Bob"));
 console.log(testHotel.checkIn(3,"Tom"));
